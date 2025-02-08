@@ -92,3 +92,31 @@ print("Reviews with assigned topics saved successfully to Reviews_with_Topics.xl
 # Display discovered topics
 for i, topic in lda_model.print_topics():
     print(f"Topic {i+1}: {topic}")
+
+
+# Visualize the topic distribution
+import matplotlib.pyplot as plt
+df = pd.read_excel("topic modelling.xlsx")
+# Count the number of reviews per topic
+topic_counts = df['Topic'].value_counts()
+
+# Plot the topic distribution
+plt.figure(figsize=(12, 6))
+bars = plt.bar(topic_counts.index, topic_counts.values, color='lightblue')
+
+# Add labels and title
+plt.title('Topic Distribution by Category', fontsize=16)
+plt.xlabel('topics', fontsize=14)
+plt.ylabel('Count', fontsize=14)
+
+# Rotate x-axis labels for better readability
+plt.xticks(rotation=45, ha='right', fontsize=12)
+
+# Add count labels on top of each bar
+plt.bar_label(bars, label_type='edge', padding=3, fontsize=10)
+
+# Adjust layout to prevent overlapping
+plt.tight_layout()
+
+# Show the plot
+plt.show()
